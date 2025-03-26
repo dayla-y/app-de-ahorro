@@ -1,11 +1,20 @@
-import {useFonts} from "expo-font"
+import {Platform} from 'react-native';
 
-export default function RootLayout() {
 
-  useFonts({
-    'PixeloidMono': require('./../assets/fonts/PixeloidMono.ttf'),
-    'PixeloidSans': require('./../assets/fonts/PixeloidSans.ttf'),
-    'PixeloidSans-Bold': require('./../assets/fonts/PixeloidSans-Bold.ttf'),
-  });
-  
+export const isAndroid = () => {
+  return Platform.OS === 'android';
+};
+
+
+export const fontFamilies = {
+  Pixeloid: {
+    medium: isAndroid() ? 'PixeloidMono': 'PixeloidMono',
+    normal: isAndroid() ? 'PixeloidSans': 'PixeloidSans',
+    bold: isAndroid() ? 'PixeloidSans-Bold': 'PixeloidSansBold',
+  },
+  Idk: {
+    medium: isAndroid() ? 'PixeloidMono': 'PixeloidMono',
+    normal: isAndroid() ? 'PixeloidSans': 'PixeloidSans',
+    bold: isAndroid() ? 'PixeloidSans-Bold': 'PixeloidSansBold',
+  }  
 }

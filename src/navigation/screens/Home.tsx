@@ -1,12 +1,42 @@
 import { Button, Text } from '@react-navigation/elements';
-import { Image, ImageBackground, StyleSheet, View } from 'react-native';
+import { Animated, Image, ImageBackground, StyleSheet, View } from 'react-native';
 import Cabeceras from '../../../components/Cabecera';
 import colors from '../../../constant/colors';
 import len from '../../assets/len.png';
 import fondo from '../../assets/fondo.png';
-
+import React, { useEffect, useRef } from 'react'; // Añadidos hooks
+import { getFontFamily } from '../../utils/fontFamily';
 
 export function Home() {
+  // Animación para el movimiento
+  const moveAnim = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    startAnimation();
+  }, []);
+
+  const startAnimation = () => {
+    Animated.loop(
+      Animated.sequence([
+        Animated.timing(moveAnim, {
+          toValue: 1,
+          duration: 2000,
+          useNativeDriver: true,
+        }),
+        Animated.timing(moveAnim, {
+          toValue: 0,
+          duration: 2000,
+          useNativeDriver: true,
+        }),
+      ])
+    ).start();
+  };
+
+  const translateY = moveAnim.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0, 20], // Rango de movimiento
+  });
+  
   return (
     <View>
     <View style={estilo.container}>
@@ -31,18 +61,28 @@ export function Home() {
         resizeMode="stretch"
         
       >
-        <Text style={estilo.text}>Consejo</Text>
+        <Text
+        style={[
+          estilo.text,
+          {marginLeft: 70},
+          {marginTop: '15%'}
+        ]
+          }
+          >Consejo</Text>
         {/* //Corregir para hacerlo dinámico */}
-        <Image
+        <Animated.Image
         source={len}
-        style={estilo.image}>
-        </Image>
+        style={[estilo.image,
+        {
+          transform: [{translateY},{rotate: '10deg'}]
+        }
+        ]}/>
         </ImageBackground>
       </View>
       
-      <View style={[estilo.scrollView, { marginTop: 30 }]}>
+      <View style={[estilo.scrollView, { marginTop: 80 }]}>
     
-        <Text style={estilo.text}>Mi historial</Text>
+        <Text style={[estilo.text]}>Mi historial</Text>
         
       </View>
 
@@ -57,7 +97,7 @@ const estilo = StyleSheet.create({
   container: {
     flexDirection: 'row', // Alinea los elementos horizontalmente
     justifyContent: 'space-between', // Distribuye el espacio entre los elementos
-    marginTop: 20,
+    marginTop: '15%',
     paddingHorizontal: 20, // Añade un padding horizontal para no pegar los elementos a los bordes
   },
   card: {
@@ -83,7 +123,7 @@ const estilo = StyleSheet.create({
     backgroundColor: colors.PRIMARY,
     width: '90%',
     marginHorizontal: '5%',
-    padding: 30,
+    padding: '10%',
   },
   image: {
     position: 'absolute', // Posición absoluta dentro del contenedor
@@ -96,10 +136,11 @@ const estilo = StyleSheet.create({
   background1: {
     position: 'relative', // Necesario para el posicionamiento absoluto de la imagen
     width: '131%',
-    height: 200,
+    height: '180%',
     padding: 20,
   },
   text: {
+    position: 'absolute',
     fontFamily: 'PixeloidSans-Bold',
   },
 });
