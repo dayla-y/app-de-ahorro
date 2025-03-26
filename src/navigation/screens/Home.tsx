@@ -24,11 +24,12 @@ export function Home() {
       
     </View>
 
-    <View style={[estilo.secondCard, {marginTop: 30}]}>
+    <View style={[estilo.secondCard]}>
     <ImageBackground
         source={fondo} // Ruta de la imagen
-        style={[estilo.background1]}
+        style={[estilo.background1, {marginLeft: -70}, {marginTop: -45}]}
         resizeMode="stretch"
+        
       >
         <Text style={estilo.text}>Consejo</Text>
         {/* //Corregir para hacerlo dinámico */}
@@ -69,7 +70,7 @@ const estilo = StyleSheet.create({
   },
   secondCard:{
     margin: '5%',
-    backgroundColor: colors.PRIMARY,
+    // backgroundColor: colors.PRIMARY,
     height: 150,
     width: '90%', // Usa un porcentaje del ancho para que sea más dinámico
     justifyContent: 'center', // Centra el texto verticalmente
@@ -85,18 +86,18 @@ const estilo = StyleSheet.create({
     padding: 30,
   },
   image: {
-    marginLeft: '70%',
-    marginTop: '-20%',
-    justifyContent: 'flex-end', // Centra el texto verticalmente
+    position: 'absolute', // Posición absoluta dentro del contenedor
+    right: 20,
+    top: '50%', // Centrado vertical inicial
     width: size,
     height: size,
+    
   },
   background1: {
-    // marginLeft: '70%',
-    marginTop: '-20%',
-    justifyContent: 'flex-end', // Centra el texto verticalmente
-    width: 450,
+    position: 'relative', // Necesario para el posicionamiento absoluto de la imagen
+    width: '131%',
     height: 200,
+    padding: 20,
   },
   text: {
     fontFamily: 'PixeloidSans-Bold',
