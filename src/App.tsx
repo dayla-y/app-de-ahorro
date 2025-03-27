@@ -16,7 +16,6 @@ SplashScreen.preventAutoHideAsync();
 
 export function App() {
   return (
-    console.log("works"),
     <Navigation
       linking={{
         enabled: 'auto',
